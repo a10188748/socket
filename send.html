@@ -72,6 +72,17 @@ conn.onmessage = function(e) {
             color:#fff;
             padding:5px 10px;
         }
+        .systalk{
+            margin-top:10px; 
+            text-align: center
+        }
+        .systalk span{
+            display:inline-block;
+            background:#FF5733;
+            border-radius:10px;
+            color:#fff;
+            padding:5px 10px;
+        }
         .btalk{
             margin:10px;
             text-align:right;
@@ -88,12 +99,6 @@ conn.onmessage = function(e) {
     	// var name = "";      
     	// prom();
         
-    	function reset()
-    	{
-    		document.getElementById('talkwords').value = "";
-    	}
-    	
-	    
         window.onload = function(){
             var conn = "";
             document.getElementById('talk_con').style.display = 'none';
@@ -105,6 +110,7 @@ conn.onmessage = function(e) {
             var Start = document.getElementById("start");
             TalkSub.onclick = function(){
                 //定义空字符串
+
                 var str = "";
                 if(TalkWords.value == ""){
                      // 消息为空时弹窗
@@ -121,12 +127,20 @@ conn.onmessage = function(e) {
                 // }
                 // # 将之前的内容与要发的内容拼接好 提交
                 Words.innerHTML = Words.innerHTML + str;
+                Words.scrollTop = Words.scrollHeight;
+                document.getElementById('talkwords').value = "";
             }
             Quit.onclick = function (){
                 conn.close();
                 location.reload();
             }
             Start.onclick = function (){
+                document.getElementById('talk_con').style.display = '';
+                document.getElementById('waitboard').style.display = 'none';
+                var waitingstr = "";
+                var Words = document.getElementById("words");
+                waitingstr = '<div class="systalk"><span>'+'連線中請稍候'+'</span></div>';
+                Words.innerHTML = Words.innerHTML + waitingstr;
                 conn = new WebSocket('ws://localhost:8080');
                 conn.onopen = function(e) {
                     // conn.send('hello 你好');
@@ -135,14 +149,16 @@ conn.onmessage = function(e) {
 
                 conn.onmessage = function(e) {
                     if(e.data == "連線完成") {
-                        document.getElementById('talk_con').style.display = '';
-                        document.getElementById('waitboard').style.display = 'none';
+                        var startstr = "";
+                        var Words = document.getElementById("words");
+                        startstr = '<div class="systalk"><span>'+'連線完成'+'</span></div>';
+                        Words.innerHTML = Words.innerHTML + startstr;
                     }
 
                     else if(e.data == "close") {
                         var closestr = "";
                         var Words = document.getElementById("words");
-                        closestr = '<div class="atalk"><span>'+'對象已經離開'+'</span></div>';
+                        closestr = '<div class="systalk"><span>'+'對象已經離開'+'</span></div>';
                         Words.innerHTML = Words.innerHTML + closestr;
                     }
                     else
@@ -151,6 +167,7 @@ conn.onmessage = function(e) {
                         var Words = document.getElementById("words");
                         restr = '<div class="atalk"><span>'+e.data+'</span></div>';
                         Words.innerHTML = Words.innerHTML + restr;
+                        Words.scrollTop = Words.scrollHeight;
                     }
                     
                     // console.log(e.data);
@@ -194,7 +211,7 @@ conn.onmessage = function(e) {
                 <option value="1">B说：</option>
             </select> -->
             <!-- <input type="text" class="whotalk" id="who" value=""> -->
-            <input type="text" class="talk_word" id="talkwords"  onclick="reset()">
+            <input type="text" class="talk_word" id="talkwords">
             <input type="button" value="发送" class="talk_sub" id="talksub">
         </div>
         <input type="button" value="離開" class="talk_sub" id="quit">

@@ -7,22 +7,27 @@ class Chat implements MessageComponentInterface {
     protected $clients;
  
     public function __construct() {
-        $this->clients = new \SplObjectStorage;
+        // 沒有key值結構 放棄...
+        // $this->clients = new \SplObjectStorage;
+        $this->clients = array();
         session_start();
     }
  
     public function onOpen(ConnectionInterface $conn) {
-        // Store the new connection to send messages to later
-        $this->clients->attach($conn);
-        echo count($this->clients);
+        // $this->clients->attach($conn);
+        $this->clients[$conn->resourceId] = $conn;
+        echo '目前有'.count($this->clients).'個連線,新連線id為'.$conn->resourceId."\n";
         // var_dump($conn);
-        echo "New connection! ({$conn->resourceId})\n";
-        $status = $this->setsession($conn->resourceId);
+        // echo "New connection! ({$conn->resourceId})\n";
+        $status = self::setsession($conn->resourceId);
         if($status) {
-            foreach ($this->clients as $client) {
-                if($client->resourceId == $status[0] || $client->resourceId == $status[1])
-                    $client->send('連線完成');
+            for($i=0 ;$i<2 ;$i++) {
+                $this->clients[$status[$i]]->send('連線完成');
             }
+            // foreach ($this->clients as $client) {
+            //     if($client->resourceId == $status[0] || $client->resourceId == $status[1])
+            //         $client->send('連線完成');
+            // }
         }
         print_r($_SESSION);
         // $conn->send('連線完成');
@@ -55,7 +60,7 @@ class Chat implements MessageComponentInterface {
  
     public function onMessage(ConnectionInterface $from, $msg) {
         $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
+        echo sprintf('Connection %d sending message "%s" to %d other connection%s'."\n"
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
         
         foreach ($_SESSION as $id => $value) {
@@ -80,20 +85,32 @@ class Chat implements MessageComponentInterface {
  
     public function onClose(ConnectionInterface $conn) {
         // The connection is closed, remove it, as we can no longer send it messages
-        $this->clients->detach($conn);
-        foreach ($this->clients as $client) {
-            $connto = $_SESSION[$conn->resourceId]['connto'];
-            if($client->resourceId == $connto)
-            {
-                $client->send('close');
-                $this->clients->detach($client);
-                unset($_SESSION[$connto]);
-                echo "Connection {$client->resourceId} has disconnected\n";
-            } 
-        }
-        // ;
+        
+        
+        // $this->clients->detach($conn);
+        // foreach ($this->clients as $client) {
+        //     $connto = $_SESSION[$conn->resourceId]['connto'];
+        //     if($client->resourceId == $connto)
+        //     {
+        //         $client->send('close');
+        //         $this->clients->detach($client);
+        //         unset($_SESSION[$connto]);
+        //         echo "Connection {$client->resourceId} has disconnected\n";
+        //     } 
+        // }
+        if(empty($_SESSION[$conn->resourceId]))return;
+        
+        $connto = $_SESSION[$conn->resourceId]['connto'];
+        $this->clients[$connto]->send('close');
+
+        echo "Connection ".$conn->resourceId." has disconnected\n";
+        echo "Connection ".$connto." has disconnected\n";
+
+        unset($this->clients[$connto]);
+        unset($this->clients[$conn->resourceId]);
         unset($_SESSION[$conn->resourceId]);
-        echo "Connection {$conn->resourceId} has disconnected\n";
+        unset($_SESSION[$connto]);
+        
     }
  
     public function onError(ConnectionInterface $conn, \Exception $e) {
