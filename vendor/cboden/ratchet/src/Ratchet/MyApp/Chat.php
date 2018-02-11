@@ -99,8 +99,9 @@ class Chat implements MessageComponentInterface {
         //     } 
         // }
         if(empty($_SESSION[$conn->resourceId]))return;
-        
+
         $connto = $_SESSION[$conn->resourceId]['connto'];
+        if($connto !="")
         $this->clients[$connto]->send('close');
 
         echo "Connection ".$conn->resourceId." has disconnected\n";

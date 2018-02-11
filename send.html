@@ -1,221 +1,36 @@
-<!-- <script type="text/javascript">
-	
-var conn = new WebSocket('ws://localhost:8080');
-conn.onopen = function(e) {
-	conn.send('hello from send.html');
-	console.log("Connection established!");
-};
-conn.onmessage = function(e) {
-	console.log(e.data);
-};
-</script> -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style type="text/css">
-        .waitboard{
-            width:600px;
-            height:500px;
-        }
-        .talk_con{
-            width:600px;
-            height:500px;
-            border:1px solid #666;
-            margin:50px auto 0;
-            background:#f9f9f9;
-        }
-        .talk_show{
-            width:580px;
-            height:420px;
-            border:1px solid #666;
-            background:#fff;
-            margin:10px auto 0;
-            overflow:auto;
-        }
-        .talk_input{
-            width:580px;
-            margin:10px auto 0;
-        }
-        .whotalk{
-            width:70px;
-            height:23px;
-            float:left;
-            outline:none;
-        }
-        .talk_word{
-            width:500px;
-            height:26px;
-            padding:0px;
-            float:left;
-            margin-left:10px;
-            outline:none;
-            text-indent:10px;
-        }        
-        .talk_sub{
-            width:56px;
-            height:30px;
-            float:left;
-            margin-left:10px;
-        }
-        .atalk{
-           margin:10px; 
-        }
-        .atalk span{
-            display:inline-block;
-            background:#0181cc;
-            border-radius:10px;
-            color:#fff;
-            padding:5px 10px;
-        }
-        .systalk{
-            margin-top:10px; 
-            text-align: center
-        }
-        .systalk span{
-            display:inline-block;
-            background:#FF5733;
-            border-radius:10px;
-            color:#fff;
-            padding:5px 10px;
-        }
-        .btalk{
-            margin:10px;
-            text-align:right;
-        }
-        .btalk span{
-            display:inline-block;
-            background:#ef8201;
-            border-radius:10px;
-            color:#fff;
-            padding:5px 10px;
-        }
-    </style>
-    <script type="text/javascript">
-    	// var name = "";      
-    	// prom();
-        
-        window.onload = function(){
-            var conn = "";
-            document.getElementById('talk_con').style.display = 'none';
-            var Words = document.getElementById("words");
-            // var Who = document.getElementById("who");
-            var TalkWords = document.getElementById("talkwords");
-            var TalkSub = document.getElementById("talksub"); 
-            var Quit = document.getElementById("quit");
-            var Start = document.getElementById("start");
-            TalkSub.onclick = function(){
-                //定义空字符串
-
-                var str = "";
-                if(TalkWords.value == ""){
-                     // 消息为空时弹窗
-                    alert("消息不能为空");
-                    return;
-                }
-                // if(Who.value == 0){
-                //     //如果Who.value为0n那么是 A说
-                //     str = '<div class="atalk"><span>A说 :' + TalkWords.value +'</span></div>';
-                // }
-                // else{
-                    str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
-                    conn.send(TalkWords.value); 
-                // }
-                // # 将之前的内容与要发的内容拼接好 提交
-                Words.innerHTML = Words.innerHTML + str;
-                Words.scrollTop = Words.scrollHeight;
-                document.getElementById('talkwords').value = "";
-            }
-            Quit.onclick = function (){
-                conn.close();
-                location.reload();
-            }
-            Start.onclick = function (){
-                document.getElementById('talk_con').style.display = '';
-                document.getElementById('waitboard').style.display = 'none';
-                var waitingstr = "";
-                var Words = document.getElementById("words");
-                waitingstr = '<div class="systalk"><span>'+'連線中請稍候'+'</span></div>';
-                Words.innerHTML = Words.innerHTML + waitingstr;
-                conn = new WebSocket('ws://localhost:8080');
-                conn.onopen = function(e) {
-                    // conn.send('hello 你好');
-                    console.log("Connection established!");
-                };
-
-                conn.onmessage = function(e) {
-                    if(e.data == "連線完成") {
-                        var startstr = "";
-                        var Words = document.getElementById("words");
-                        startstr = '<div class="systalk"><span>'+'連線完成'+'</span></div>';
-                        Words.innerHTML = Words.innerHTML + startstr;
-                    }
-
-                    else if(e.data == "close") {
-                        var closestr = "";
-                        var Words = document.getElementById("words");
-                        closestr = '<div class="systalk"><span>'+'對象已經離開'+'</span></div>';
-                        Words.innerHTML = Words.innerHTML + closestr;
-                    }
-                    else
-                    {
-                        var restr = "";
-                        var Words = document.getElementById("words");
-                        restr = '<div class="atalk"><span>'+e.data+'</span></div>';
-                        Words.innerHTML = Words.innerHTML + restr;
-                        Words.scrollTop = Words.scrollHeight;
-                    }
-                    
-                    // console.log(e.data);
-                };
-                // conn.onclose = function (e) {
-                    
-                // }
-            }
-
-        }
-        function prom() {  
-	        name = prompt("请输入您的名字", ""); //将输入的内容赋给变量 name ，  
-	  
-	        //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值  
-	        if (name)//如果返回的有内容  
-	        {  
-	            alert("欢迎您：" + name)  
-	        }
-	        else
-	        {
-	        	prom();
-	        }  
-	  
-	    }  
-
-    </script>
+    <meta name="description" content="雀雀聊天" />
+    <meta name="keywords" content="雀雀聊天 雀雀 聊天">
+    <meta name="Author" content="sean_yeh" />
+    <title>雀雀</title>
+    <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+    <link href="main.css" rel="stylesheet" type="text/css" />
+    <script src="main.js"></script>
 </head>
-<body>
-    <div class='waitboard' id='waitboard'>
-        <p>盜版ＷＯＯＴＡＬＫ</p>
-        <input type="button" value="開始聊天" class="talk_sub" id="start">
-    </div>
-    <div class="talk_con" id='talk_con'>
-        <div class="talk_show" id="words">
-            <!-- <div class="atalk"><span id="asay">A说：吃饭了吗？</span></div>
-            <div class="btalk"><span id="bsay">B说：还没呢，你呢？</span></div> -->
+<body><div>
+        <div class='waitboard' id="waitboard">
+        <input type="button" value="開始聊天" class='start' id="start"></input>
         </div>
-        <div class="talk_input">
-            <!-- <select class="whotalk" id="who">
-                <option value="0">A说：</option>
-                <option value="1">B说：</option>
-            </select> -->
-            <!-- <input type="text" class="whotalk" id="who" value=""> -->
-            <input type="text" class="talk_word" id="talkwords">
-            <input type="button" value="发送" class="talk_sub" id="talksub">
+        <div class="talk_con" id='talk_con'>
+            <div class="talk_show" id="words">
+            </div>
+            <div class="talk_input">
+                <div class="talk_sub">
+                     <input type="button" value="離開" id="quit">
+                </div>
+                <div class="talk_word">
+                    <input type="text"  id="talkwords">
+                </div>
+                <div class="talk_sub">
+                    <input type="button" value="傳送" id="talksub">
+                </div>   
+            </div>
         </div>
-        <input type="button" value="離開" class="talk_sub" id="quit">
-    </div>
-    
+    <div>
 </body>
 </html>
