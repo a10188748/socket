@@ -57,7 +57,7 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + waitingstr;
 
         setTimeout(function(){ 
-            conn = new WebSocket('ws://localhost:8080');
+            conn = new WebSocket('ws://ec2-54-92-215-154.compute-1.amazonaws.com:8080');
 
             conn.onopen = function(e) {
             console.log("Connection established!");
