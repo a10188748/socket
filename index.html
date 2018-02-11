@@ -1,23 +1,36 @@
-<script type="text/javascript">
-	
-var conn = new WebSocket('ws://localhost:8080');
-conn.onopen = function(e) {
-    // conn.send('hello 你好');
-    console.log("Connection established!");
-};
-conn.onmessage = function(e) {
-    console.log(e.data);
-    document.getElementById("22").value = document.getElementById("22").value+'\n'+e.data;
-};
-
-function aaa() {
-
-	var chat = document.getElementById("11").value;
-	conn.send(chat);
-	document.getElementById("22").value = document.getElementById("22").value+'\n'+chat;
-	document.getElementById("11").value="";
-}
-</script>
-<textarea id="11"></textarea>
-<textarea id="22"></textarea>
-<button onclick="aaa()"></button>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="雀雀聊天" />
+    <meta name="keywords" content="雀雀聊天 雀雀 聊天">
+    <meta name="Author" content="sean_yeh" />
+    <title>雀雀</title>
+    <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+    <link href="main.css" rel="stylesheet" type="text/css" />
+    <script src="main.js"></script>
+</head>
+<body><div>
+        <div class='waitboard' id="waitboard">
+        <input type="button" value="開始聊天" class='start' id="start"></input>
+        </div>
+        <div class="talk_con" id='talk_con'>
+            <div class="talk_show" id="words">
+            </div>
+            <div class="talk_input">
+                <div class="talk_sub">
+                     <input type="button" value="離開" id="quit">
+                </div>
+                <div class="talk_word">
+                    <input type="text"  id="talkwords">
+                </div>
+                <div class="talk_sub">
+                    <input type="button" value="傳送" id="talksub">
+                </div>   
+            </div>
+        </div>
+    <div>
+</body>
+</html>
