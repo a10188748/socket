@@ -192,27 +192,27 @@ input:focus {
     }   
     .talk_con {
         border-radius:10px;
-        width:300px;
+        width:350px;
         height:600px;
         margin:50px auto 0;
         background:#f9f9f9;
     }
     .talk_show {
-        width:280px;
+        width:330px;
         height:540px;
         background:#fff;
         margin:10px auto 0;
         overflow:auto;
     }
     .talk_sub {
-        width:10%;
+        width:12%;
         height:30px;
         float:left;
         margin-left:5px;
         margin-top: 7px;
     }
     .talk_word {
-        width:70%;
+        width:60%;
         height:30px;
         float:left;
         margin-left:10px;
@@ -220,7 +220,7 @@ input:focus {
         outline:none;
     } 
     .talk_sub input[type=button] {
-        font-size: 8px;
+        font-size: 12px;
         width: 100%;
         height: 100%;
         background: #f9f9f9;
