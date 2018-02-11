@@ -6,6 +6,11 @@ img {
     height: auto;
     max-width: 100%;
 }
+input {
+    -webkit-appearance: none;  /* Safari 和 Chrome，常用於iOS下移除內建樣式 */
+    -moz-appearance: none;     /* FireFox */
+    appearance: none;
+}
 input:focus { 
     outline: none;
 }
@@ -16,7 +21,7 @@ input:focus {
 
 .talk_input {
     width:100%;
-    height: 50px;
+    height: 40px;
     background-color: #f9f9f9;
     margin:0px auto 0;
 }
@@ -30,7 +35,7 @@ input:focus {
 
     line-height: 1.35;
 }      
-.talk_sub input[type=text] {
+.talk_sub input[type=button] {
     font-size: 16px;
     width: 100%;
     height: 100%;
@@ -214,7 +219,7 @@ input:focus {
         margin-top: 8px;
         outline:none;
     } 
-    .talk_sub input[type=text] {
+    .talk_sub input[type=button] {
         font-size: 8px;
         width: 100%;
         height: 100%;
