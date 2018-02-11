@@ -225,6 +225,14 @@ input:focus {
         height: 100%;
         background: #f9f9f9;
         color: #ff5e3a;
+        border: 0;
+    }
+    .talk_sub input[type=button] {
+        font-size: 12px;
+        width: 100%;
+        height: 100%;
+        background: #f9f9f9;
+        color: #ff5e3a;
         /*border-radius: 1px;*/
         border: 0;
     }
