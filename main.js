@@ -76,6 +76,7 @@ window.onload = function(){
                     var Words = document.getElementById("words");
                     closestr = '<div class="systalk"><span>'+'對象已經離開'+'</span></div>';
                     Words.innerHTML = Words.innerHTML + closestr;
+                    Words.scrollTop = Words.scrollHeight;
                     startchat('close');
                 }
                 else {
