@@ -158,22 +158,31 @@ input:focus {
         overflow:auto;
     }
     .talk_sub {
-        width:8%;
-        height:50px;
+        width:9%;
+        height:40px;
         float:left;
-        margin-left:10px;
+        margin-left:5px;
         margin-top: 7px;
     }
+    .talk_sub input[type=button] {
+        font-size: 7px;
+        width: 100%;
+        height: 100%;
+        background: #f9f9f9;
+        color: #ff5e3a;
+        /*border-radius: 1px;*/
+        border: 0;
+    }
     .talk_word {
-        width:74%;
-        height:50px;
+        width:76%;
+        height:40px;
         float:left;
-        margin-left:10px;
+        margin-left:5px;
         margin-top: 8px;
         outline:none;
     } 
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 400px) {
     .waitboard {
         width:230px;
         height:80px;
@@ -205,10 +214,10 @@ input:focus {
         overflow:auto;
     }
     .talk_sub {
-        width:9%;
+        width:10%;
         height:30px;
         float:left;
-        margin-left:10px;
+        margin-left:5px;
         margin-top: 7px;
     }
     .talk_word {
