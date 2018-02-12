@@ -25,10 +25,6 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + str;
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
-        e.preventDefault();
-         setTimeout(function() {
-            $('#talkwords').focus();
-        }, 100);
     }
     Quit.onclick = function (){
         conn.close();;
@@ -153,5 +149,8 @@ window.onload = function(){
             document.body.removeChild(soundsObj); 
         }); 
     } 
+    document.addEventListener('touchstart',function() {
+        document.getElementById('talkwords').focus();
+    })
 
 }
