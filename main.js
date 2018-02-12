@@ -15,7 +15,7 @@ window.onload = function(){
             $("#talksub").click();
         }
     });
-    TalkSub.onclick = function(){
+    TalkSub.onclick = function(e){
         var str = "";
         if(TalkWords.value == "" ||connok != "ok"){
             return;
@@ -25,6 +25,7 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + str;
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
+        e.preventDefault();
         $('#talkwords').focus();
     }
     Quit.onclick = function (){
