@@ -23,7 +23,7 @@ window.onload = function(){
             str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
             conn.send(TalkWords.value); 
         Words.innerHTML = Words.innerHTML + str;
-        Words.scrollTop = Words.scrollHeight;
+        // Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
         e.preventDefault();
         document.addEventListener('touchstart',function() {     
