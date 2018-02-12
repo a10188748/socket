@@ -26,7 +26,9 @@ window.onload = function(){
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
         e.preventDefault();
-        $('#talkwords').focus();
+         setTimeout(function() {
+            $('#talkwords').focus();
+        }, 100);
     }
     Quit.onclick = function (){
         conn.close();;
