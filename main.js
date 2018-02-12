@@ -23,12 +23,10 @@ window.onload = function(){
             str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
             conn.send(TalkWords.value); 
         Words.innerHTML = Words.innerHTML + str;
-        // Words.scrollTop = Words.scrollHeight;
+        Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
         e.preventDefault();
-        document.addEventListener('touchstart',function() {     
-            document.getElementById('talkwords').focus();
-        })
+        
     }
     Quit.onclick = function (){
         conn.close();;
@@ -95,7 +93,7 @@ window.onload = function(){
                     var Words = document.getElementById("words");
                     restr = '<div class="atalk"><span>'+e.data+'</span></div>';
                     Words.innerHTML = Words.innerHTML + restr;
-                    // Words.scrollTop = Words.scrollHeight;
+                    Words.scrollTop = Words.scrollHeight;
                 }  
                 document.addEventListener(visibilityChange, function() {
                     if(document[state] != 'hidden')
@@ -153,5 +151,8 @@ window.onload = function(){
             document.body.removeChild(soundsObj); 
         }); 
     } 
+    document.addEventListener('touchstart',function() {     
+        document.getElementById('talkwords').focus();
+    })
 
 }
