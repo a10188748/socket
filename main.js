@@ -25,7 +25,7 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + str;
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
-        $('#talksub').focus();
+        $('#talkwords').focus();
     }
     Quit.onclick = function (){
         conn.close();;
@@ -72,7 +72,6 @@ window.onload = function(){
                     document.title = '('+readmsg+')雀雀';
                     playSoundsForHtml5(1);
                 }
-                console.log(readmsg);
                 if(e.data == "連線完成") {
                     var startstr = "";
                     var Words = document.getElementById("words");
