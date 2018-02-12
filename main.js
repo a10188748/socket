@@ -95,7 +95,7 @@ window.onload = function(){
                     var Words = document.getElementById("words");
                     restr = '<div class="atalk"><span>'+e.data+'</span></div>';
                     Words.innerHTML = Words.innerHTML + restr;
-                    Words.scrollTop = Words.scrollHeight;
+                    // Words.scrollTop = Words.scrollHeight;
                 }  
                 document.addEventListener(visibilityChange, function() {
                     if(document[state] != 'hidden')
