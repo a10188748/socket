@@ -47,7 +47,7 @@ $(window).resize(function(){
             document.getElementById('talkwords').value = "";
             e.preventDefault();
             e.stopPropagation();
-            $('#talkwords').trigger('focus');
+            $('#talkwords').trigger('select');
 
         },
         click: function() {
