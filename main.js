@@ -45,9 +45,9 @@ $(window).resize(function(){
             Words.innerHTML = Words.innerHTML + str;
             Words.scrollTop = Words.scrollHeight;
             document.getElementById('talkwords').value = "";
-            e.preventDefault();
-            e.stopPropagation();
-            $('#talkwords').trigger('select');
+            // e.preventDefault();
+            // e.stopPropagation();
+            $('#talkwords').trigger('click');
 
         },
         click: function() {
