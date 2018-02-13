@@ -36,6 +36,9 @@ $(window).resize(function(){
 
     $('#talksub').on({
         touchstart: function(e) { 
+            e.preventDefault();
+            e.stopPropagation();
+            $('#talkwords').trigger('click');
             var str = "";
             if(TalkWords.value == "" ||connok != "ok"){
                 return;
@@ -45,10 +48,6 @@ $(window).resize(function(){
             Words.innerHTML = Words.innerHTML + str;
             Words.scrollTop = Words.scrollHeight;
             document.getElementById('talkwords').value = "";
-            e.preventDefault();
-            e.stopPropagation();
-            $('#talkwords').trigger('click');
-
         },
         click: function() {
             var str = "";
