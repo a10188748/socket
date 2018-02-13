@@ -16,7 +16,7 @@ window.onload = function(){
         }
     });
     $('#talksub').on({
-    touchstart: function() {
+    touchstart: function(e) {
         var str = "";
         if(TalkWords.value == "" ||connok != "ok"){
             return;
