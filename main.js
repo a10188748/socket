@@ -14,35 +14,55 @@ window.onload = function(){
         if (code == 13) {
             $("#talksub").click();
         }
-    });
-    $('#talksub').on({
-    touchstart: function(e) {
-       
-        e.preventDefault();
-        e.stopPropagation();
-        $('#talkwords').trigger('focus');
-        var str = "";
-        if(TalkWords.value == "" ||connok != "ok"){
-            return;
-        }
-            str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
-            conn.send(TalkWords.value); 
-        Words.innerHTML = Words.innerHTML + str;
-        Words.scrollTop = Words.scrollHeight;
-        document.getElementById('talkwords').value = "";
 
-    },
-    click: function() {
-        var str = "";
-        if(TalkWords.value == "" ||connok != "ok"){
-            return;
+
+
+var winHeight = $(window).height();   //获取当前页面高度
+$(window).resize(function(){
+   var thisHeight=$(this).height();
+    if(winHeight - thisHeight >50){
+         $("talk_input").css("position","absolute");
+
+    }else{
+        //当软键盘收起，在此处操作
+
+    }
+});
+
+
+
+
+    });
+
+    $('#talksub').on({
+        touchstart: function(e) {
+           
+            e.preventDefault();
+            e.stopPropagation();
+            $('#talkwords').trigger('focus');
+            var str = "";
+            if(TalkWords.value == "" ||connok != "ok"){
+                return;
+            }
+                str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
+                conn.send(TalkWords.value); 
+            Words.innerHTML = Words.innerHTML + str;
+            Words.scrollTop = Words.scrollHeight;
+            document.getElementById('talkwords').value = "";
+
+        },
+        click: function() {
+            var str = "";
+            if(TalkWords.value == "" ||connok != "ok"){
+                return;
+            }
+                str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
+                conn.send(TalkWords.value); 
+            Words.innerHTML = Words.innerHTML + str;
+            Words.scrollTop = Words.scrollHeight;
+            document.getElementById('talkwords').value = "";
         }
-            str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
-            conn.send(TalkWords.value); 
-        Words.innerHTML = Words.innerHTML + str;
-        Words.scrollTop = Words.scrollHeight;
-        document.getElementById('talkwords').value = "";
-    }});
+    });
     // TalkSub.onclick = function(){
     // }
     Quit.onclick = function (){
@@ -169,11 +189,5 @@ window.onload = function(){
         }); 
     } 
     
-    window.on('keyboardup', function (e) {
-    console.log(e.height)
-})
-// 键盘收起事件
-window.on('keyboarddown', function (e) {
-    console.log(e.height) // 0
-})
+    
 }
