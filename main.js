@@ -21,6 +21,16 @@ window.onload = function(){
         e.preventDefault();
         e.stopPropagation();
         $('#talkwords').trigger('focus');
+        var str = "";
+        if(TalkWords.value == "" ||connok != "ok"){
+            return;
+        }
+            str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
+            conn.send(TalkWords.value); 
+        Words.innerHTML = Words.innerHTML + str;
+        Words.scrollTop = Words.scrollHeight;
+        document.getElementById('talkwords').value = "";
+
     },
     click: function() {
         var str = "";
