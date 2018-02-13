@@ -202,14 +202,14 @@ input:focus {
     }   
     .talk_con {
         border-radius:10px;
-        width:380px;
-        height:600px;
+        width:400px;
+        height:500px;
         margin:50px auto 0;
         background:#f9f9f9;
     }
     .talk_show {
-        width:360px;
-        height:540px;
+        width:380px;
+        height:440px;
         background:#fff;
         margin:10px auto 0;
         overflow:auto;
