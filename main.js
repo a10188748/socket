@@ -40,7 +40,7 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + str;
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
-    }
+    }});
     // TalkSub.onclick = function(){
     // }
     Quit.onclick = function (){
