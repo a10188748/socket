@@ -15,7 +15,8 @@ window.onload = function(){
             $("#talksub").click();
         }
     });
-    TalkSub.onclick = function(e){
+    $('#talksub').on({
+    touchstart: function() {
         var str = "";
         if(TalkWords.value == "" ||connok != "ok"){
             return;
@@ -25,7 +26,22 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + str;
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
-        focus();
+        e.preventDefault();
+        e.stopPropagation();
+        $('#talkwords').trigger('focus');
+    },
+    click: function() {
+        var str = "";
+        if(TalkWords.value == "" ||connok != "ok"){
+            return;
+        }
+            str = '<div class="btalk"><span>' + TalkWords.value +'</span></div>' ; 
+            conn.send(TalkWords.value); 
+        Words.innerHTML = Words.innerHTML + str;
+        Words.scrollTop = Words.scrollHeight;
+        document.getElementById('talkwords').value = "";
+    }
+    TalkSub.onclick = function(e){
     }
     Quit.onclick = function (){
         conn.close();;
@@ -150,12 +166,6 @@ window.onload = function(){
             document.body.removeChild(soundsObj); 
         }); 
     } 
-    function focus() {
-        $('#talksub').on('touchstart', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            $('#talkwords').trigger('focus');
-        })
-    }
+    
     
 }
