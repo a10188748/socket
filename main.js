@@ -20,7 +20,7 @@ window.onload = function(){
 var winHeight = $(window).height();   //获取当前页面高度
 $(window).resize(function(){
    var thisHeight=$(this).height();
-    if(winHeight - thisHeight >50){
+    if(winHeight - thisHeight >20){
          $("#talk_input").css("position","absolute");
 
     }else{

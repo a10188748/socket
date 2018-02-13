@@ -24,7 +24,6 @@ input:focus {
     height: 40px;
     background-color: #f9f9f9;
     margin:0px auto 0;
-    position:absolute;
 }
 .talk_word input[type=text] {
     font-size: 16px;
