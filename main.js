@@ -38,7 +38,6 @@ $(window).resize(function(){
         touchstart: function(e) {
            
             e.preventDefault();
-            e.stopPropagation();
             $('#talkwords').trigger('focus');
             var str = "";
             if(TalkWords.value == "" ||connok != "ok"){
