@@ -151,8 +151,4 @@ window.onload = function(){
             document.body.removeChild(soundsObj); 
         }); 
     } 
-    document.addEventListener('touchstart',function() {     
-        document.getElementById('talkwords').focus();
-    })
-
 }
