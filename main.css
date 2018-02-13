@@ -273,7 +273,7 @@ input:focus {
     } 
     .talk_word input[type=text] {
         font-size: 12px;
-        width:96%;
+        width:90%;
         height: 90%;
         border-radius: 5px;
         background: #FFF;
