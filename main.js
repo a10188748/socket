@@ -37,7 +37,7 @@ $(window).resize(function(){
     $('#talksub').on({
         touchstart: function(e) {
            
-            // e.preventDefault();
+            e.preventDefault();
             e.stopPropagation();
             $('#talkwords').trigger('focus');
             var str = "";
