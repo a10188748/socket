@@ -169,5 +169,11 @@ window.onload = function(){
         }); 
     } 
     
-    
+    window.on('keyboardup', function (e) {
+    console.log(e.height)
+})
+// 键盘收起事件
+window.on('keyboarddown', function (e) {
+    console.log(e.height) // 0
+})
 }
