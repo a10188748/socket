@@ -2,7 +2,7 @@ var connok = "";
 window.onload = function(){
     var conn = "";
     var hidden, state, visibilityChange;
-    document.getElementById('talk_con').style.display = 'none';
+    document.getElementById('background').style.display = 'none';
     var Words = document.getElementById("words");
     var TalkWords = document.getElementById("talkwords");
     var TalkSub = document.getElementById("talksub"); 
@@ -76,7 +76,7 @@ $(window).resize(function(){
                 document.getElementById("start").disabled=false;
             }, 2000);
         }, 1000);
-        $("#talk_con").slideUp(600);
+        $("#background").slideUp(600);
         
     }
     Start.onclick = function (){
@@ -90,7 +90,7 @@ $(window).resize(function(){
         $("#waitboard").slideUp(600);
 
         setTimeout(function(){
-                $("#talk_con").fadeIn(2000);
+                $("#background").fadeIn(2000);
             }, 1000);
 
         waitingstr = '<div class="systalk"><span>'+'連線中請稍候'+'</span></div>';
