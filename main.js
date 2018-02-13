@@ -152,6 +152,6 @@ window.onload = function(){
     $('#talksub').on('touchstart', function(e){
         e.preventDefault();
         e.stopPropagation();
-        document.getElementById('talkwords').focus();
+        $('#talkwords').trigger('focus');
     })
 }
