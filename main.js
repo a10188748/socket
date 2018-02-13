@@ -21,7 +21,7 @@ var winHeight = $(window).height();   //获取当前页面高度
 $(window).resize(function(){
    var thisHeight=$(this).height();
     if(winHeight - thisHeight >50){
-         $("talk_input").css("position","absolute");
+         $("#talk_input").css("position","absolute");
 
     }else{
         //当软键盘收起，在此处操作
