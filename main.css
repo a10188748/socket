@@ -207,7 +207,7 @@ input:focus {
 
 @media only screen and (min-width: 0px) and (max-width: 414px){
     body {
-        height: 600px;
+        height: 400px;
     }
     .waitboard {
         width:230px;
