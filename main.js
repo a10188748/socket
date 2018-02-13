@@ -25,11 +25,6 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + str;
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
-        $('#talksub').on('touchstart', function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            $('#talkwords').trigger('focus');
-        })
     }
     Quit.onclick = function (){
         conn.close();;
@@ -154,4 +149,9 @@ window.onload = function(){
             document.body.removeChild(soundsObj); 
         }); 
     } 
+    $('#talksub').on('touchstart', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#talkwords').trigger('focus');
+    })
 }
