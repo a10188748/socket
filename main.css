@@ -206,8 +206,8 @@ input:focus {
         height:500px;
         margin:50px auto 0;
         background:#f9f9f9;
-        position:fixed;
-        bottom: 0;
+        /*position:fixed;
+        bottom: 0;*/
     }
     .talk_show {
         width:380px;

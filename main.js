@@ -22,7 +22,10 @@ $(window).resize(function(){
    var thisHeight=$(this).height();
     if(winHeight - thisHeight >50){
 
-
+        var inputTextBox = document.getElementById('talkwords');
+        setInterval(function(){
+          inputTextBox.scrollIntoView(false);
+        },200)
     }else{
         //当软键盘收起，在此处操作
 
