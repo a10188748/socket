@@ -41,8 +41,8 @@ window.onload = function(){
         Words.scrollTop = Words.scrollHeight;
         document.getElementById('talkwords').value = "";
     }
-    TalkSub.onclick = function(e){
-    }
+    // TalkSub.onclick = function(){
+    // }
     Quit.onclick = function (){
         conn.close();;
         startchat('close');
