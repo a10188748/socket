@@ -268,7 +268,7 @@ input:focus {
         height:40px;
         float:left;
         margin-left:10px;
-        margin-top: 8px;
+        margin-top: 4px;
         outline:none;
     } 
     .talk_word input[type=text] {
