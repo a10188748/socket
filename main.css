@@ -127,7 +127,7 @@ input:focus {
     .waitboard {
         width:230px;
         height:80px;
-        margin:150px auto 0;  
+        margin:150px auto 0;
     }
     .start {
         width:100%;
@@ -188,6 +188,7 @@ input:focus {
         width:230px;
         height:80px;
         margin:300px auto 0;  
+        position: absolute;
     }
     .start {
         width:100%;
