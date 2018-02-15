@@ -34,6 +34,7 @@ class Chat implements MessageComponentInterface {
             if($status) {
                 for($i=0 ;$i<2 ;$i++) {
                     $this->clients[$status[$i]['id']]->send('連線完成');
+                    echo  $status[$i]['id'].'連線完成';
                 }
             }
             print_r($_SESSION);
@@ -66,6 +67,7 @@ class Chat implements MessageComponentInterface {
                                            'connip' => $value['ip'],
                                           );
                 $this->clients[$userid]->send('連線完成');
+                echo  $userid.'連線完成';
 
                 // 發送暫存訊息
                 if(isset($this->message[$userip])) {
