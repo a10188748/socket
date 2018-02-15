@@ -26,7 +26,6 @@ class Chat implements MessageComponentInterface {
         }
         if($conn)
         {
-            echo 1;
             $this->clients[$conn->resourceId] = $conn;
             echo '目前有'.count($this->clients).'個連線,新連線id為'.$conn->resourceId."\n";
             $status = self::setsession($conn->resourceId,$conn->remoteAddress);
@@ -68,13 +67,14 @@ class Chat implements MessageComponentInterface {
                                            'ip' => $userip,
                                            'connip' => $value['ip'],
                                           );
+                $this->clients[$userid]->send('連線完成');
                 // 發送暫存訊息
-                if($message[$userip]) {
-                    foreach ($message[$userip] as $key => $value) {
+                if($this->message[$userip]) {
+                    foreach ($this->message[$userip] as $key => $value) {
                         $this->clients[$userid]->send($value);
                     }
                 }  
-                unset($message[$userid]);
+                unset($this->message[$userid]);
                 return false;
             }
         }
