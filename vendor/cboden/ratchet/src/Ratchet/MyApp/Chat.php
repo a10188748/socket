@@ -16,11 +16,16 @@ class Chat implements MessageComponentInterface {
     }
  
     public function onOpen(ConnectionInterface $conn) {
-        // $this->clients->attach($conn);
+        // 檢查重複連線
+        foreach ($_SESSION as $key => $value) {
+            if($value['ip'] == $conn->remoteAddress)
+            {
+                $conn->send('same');
+                exit;
+            }
+        }
         $this->clients[$conn->resourceId] = $conn;
         echo '目前有'.count($this->clients).'個連線,新連線id為'.$conn->resourceId."\n";
-         var_dump($conn->remoteAddress);
-        // echo "New connection! ({$conn->resourceId})\n";
         $status = self::setsession($conn->resourceId,$conn->remoteAddress);
         if($status) {
             for($i=0 ;$i<2 ;$i++) {
