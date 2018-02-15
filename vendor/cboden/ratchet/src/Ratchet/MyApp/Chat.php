@@ -72,6 +72,7 @@ class Chat implements MessageComponentInterface {
                 $this->clients[$userid]->send('連線完成');
                 // 發送暫存訊息
                 if(isset($this->message[$userip])) {
+                    print_r($this->message[$userip]);
                     foreach ($this->message[$userip] as $key => $value) {
                         $this->clients[$userid]->send($value);
                     }
@@ -130,7 +131,7 @@ class Chat implements MessageComponentInterface {
         }
         else{
             foreach ($_SESSION as $id => $value) {
-            // 找出方送人的session
+            // 找出發送人的session
             if($from->resourceId == $id) {
                 // 若發送人connid為空 [對象暫時離線 存訊息]
                 if($value['connid'] == ""){
