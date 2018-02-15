@@ -16,15 +16,17 @@ class Chat implements MessageComponentInterface {
     }
  
     public function onOpen(ConnectionInterface $conn) {
+        // 重複登入teg
+        $type = false;
         // 檢查重複連線
         foreach ($_SESSION as $key => $value) {
             if($value['ip'] == $conn->remoteAddress)
             {
                 $conn->send('same');
-                $conn->close();
+                $type = true;
             }
         }
-        if($conn)
+        if(!$type)
         {
             $this->clients[$conn->resourceId] = $conn;
             echo '目前有'.count($this->clients).'個連線,新連線id為'.$conn->resourceId."\n";
@@ -69,7 +71,7 @@ class Chat implements MessageComponentInterface {
                                           );
                 $this->clients[$userid]->send('連線完成');
                 // 發送暫存訊息
-                if($this->message[$userip]) {
+                if(isset($this->message[$userip])) {
                     foreach ($this->message[$userip] as $key => $value) {
                         $this->clients[$userid]->send($value);
                     }
