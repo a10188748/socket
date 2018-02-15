@@ -70,6 +70,7 @@ class Chat implements MessageComponentInterface {
                                            'connip' => $value['ip'],
                                           );
                 $this->clients[$userid]->send('連線完成');
+                echo 1;
                 // 發送暫存訊息
                 if(isset($this->message[$userip])) {
                     foreach ($this->message[$userip] as $key => $value) {
