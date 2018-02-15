@@ -69,9 +69,11 @@ class Chat implements MessageComponentInterface {
                                            'connip' => $value['ip'],
                                           );
                 // 發送暫存訊息
-                foreach ($message[$userip] as $key => $value) {
-                    $this->clients[$userid]->send($value);
-                }
+                if($message[$userip]) {
+                    foreach ($message[$userip] as $key => $value) {
+                        $this->clients[$userid]->send($value);
+                    }
+                }  
                 unset($message[$userid]);
                 return false;
             }
@@ -193,6 +195,7 @@ class Chat implements MessageComponentInterface {
         // unset($this->clients[$connto]);
         unset($this->clients[$conn->resourceId]);
         unset($_SESSION[$conn->resourceId]);
+        print_r($_SESSION);
         // unset($_SESSION[$connto]);
         
     }
