@@ -75,6 +75,7 @@ class Chat implements MessageComponentInterface {
                         $this->clients[$userid]->send($value);
                     }
                     unset($this->message[$userip]);
+                    print_r($this->message);
                 }  
                 return false;
             }
@@ -134,7 +135,7 @@ class Chat implements MessageComponentInterface {
                 // 若發送人connid為空 [對象暫時離線 存訊息]
                 if($value['connid'] == ""){
                     $this->message[$value['connip']][] = $msg;
-                    // print_r($this->message);
+                    print_r($this->message);
                     break;
                 }
                 // 若不為空 則發訊息
