@@ -75,8 +75,8 @@ class Chat implements MessageComponentInterface {
                     foreach ($this->message[$userip] as $key => $value) {
                         $this->clients[$userid]->send($value);
                     }
+                    unset($this->message[$userip]);
                 }  
-                unset($this->message[$userid]);
                 return false;
             }
         }
