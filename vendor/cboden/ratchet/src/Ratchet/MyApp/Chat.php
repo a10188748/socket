@@ -5,11 +5,13 @@ use Ratchet\ConnectionInterface;
  
 class Chat implements MessageComponentInterface {
     protected $clients;
+    protected $message;
  
     public function __construct() {
         // 沒有key值結構 放棄...
         // $this->clients = new \SplObjectStorage;
         $this->clients = array();
+        $this->message = array();
         session_start();
     }
  
@@ -17,12 +19,12 @@ class Chat implements MessageComponentInterface {
         // $this->clients->attach($conn);
         $this->clients[$conn->resourceId] = $conn;
         echo '目前有'.count($this->clients).'個連線,新連線id為'.$conn->resourceId."\n";
-        // var_dump($conn);
+         var_dump($conn->remoteAddress);
         // echo "New connection! ({$conn->resourceId})\n";
-        $status = self::setsession($conn->resourceId);
+        $status = self::setsession($conn->resourceId,$conn->remoteAddress);
         if($status) {
             for($i=0 ;$i<2 ;$i++) {
-                $this->clients[$status[$i]]->send('連線完成');
+                $this->clients[$status[$i]['id']]->send('連線完成');
             }
             // foreach ($this->clients as $client) {
             //     if($client->resourceId == $status[0] || $client->resourceId == $status[1])
@@ -33,24 +35,59 @@ class Chat implements MessageComponentInterface {
         // $conn->send('連線完成');
     }
 
-    public function setsession($userid)
+    public function setsession($userid,$userip)
     {
+
         $i = 0;
+        // 閒置的人
         $pair = array();
-        $_SESSION[$userid]=array('status' => 'Idle',
-                                 'connto' => '',
-                                );
+        foreach ($_SESSION as $key => $value) {
+            if($value['ip'] == $userip)
+            {
+                $this->clients[$userid]->send('same');
+                unset($this->clients[$userid]);
+                return false;
+            }
+            // 若你的ip在他人的connip裡
+            if($value['connip'] == $userip) {
+                // 改他人的connid
+                $_SESSION[$key]['connid'] = $userid;
+
+                // 新增自己的session
+                $_SESSION[$userid] = array('status' => 'Busy',
+                                           'connid' => $key,
+                                           'ip' => $userip,
+                                           'connip' => $value['ip'],
+                                          );
+                // 發送暫存訊息
+                foreach ($message[$userip] as $key => $value) {
+                    $this->clients[$userid]->send($value);
+                }
+                unset($message[$userid]);
+                return false;
+            }
+        }
+        $_SESSION[$userid] = array('status' => 'Idle',
+                                   'connid' => '',
+                                   'ip' => $userip,
+                                   'connip' =>'',
+                                  );
         foreach ($_SESSION as $key => $value) {
             if($value['status'] == 'Idle') {
-                $pair[$i] = $key;
+                $pair[$i]['id'] = $key;
+                $pair[$i]['ip'] = $value['ip'];
                 $i++;
             }
-            if($i == 2) {
-                $_SESSION[$pair[0]] = array('status' => 'Busy',
-                                            'connto' => $pair[1],
+            if($i == 2 ) {
+                $_SESSION[$pair[0]['id']] = array('status' => 'Busy',
+                                            'connid' => $pair[1]['id'],
+                                            'ip' => $pair[0]['ip'],
+                                            'connip' => $pair[1]['ip'],
                                             );
-                $_SESSION[$pair[1]] = array('status' => 'Busy',
-                                            'connto' => $pair[0],
+                $_SESSION[$pair[1]['id']] = array('status' => 'Busy',
+                                            'connid' => $pair[0]['id'],
+                                            'ip' => $pair[1]['ip'],
+                                            'connip' => $pair[0]['ip'],
                                             );
                 return array($pair[0],$pair[1]);
             }
@@ -59,20 +96,51 @@ class Chat implements MessageComponentInterface {
     }
  
     public function onMessage(ConnectionInterface $from, $msg) {
-        $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s'."\n"
-            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
         
-        foreach ($_SESSION as $id => $value) {
-            if($from->resourceId == $id) {
-                foreach ($this->clients as $client) {
-                   if($client->resourceId == $value['connto'])
-                   {
-                        $client->send($msg);
-                   } 
+        if($msg == "close"){
+            // 清掉自己的連線&session
+            unset($this->clients[$from->resourceId]);
+            unset($_SESSION[$from->resourceId]);
+
+            foreach ($_SESSION as $key => $value) {
+                if($value['connid'] == $from->resourceId) {
+
+                    // 發送close消息給對象
+                    $this->clients[$key]->send('close');
+                    // 清掉對象的連線&session
+                    unset($this->clients[$key]);
+                    unset($_SESSION[$key]);
+
                 }
             }
+            print_r($_SESSION);
         }
+        else{
+            foreach ($_SESSION as $id => $value) {
+            // 找出方送人的session
+            if($from->resourceId == $id) {
+                // 若發送人connid為空 [對象暫時離線 存訊息]
+                if($value['connid'] == ""){
+                    $message[$value['connip']][] = $msg;
+                    break;
+                }
+                // 若不為空 則發訊息
+                else
+                {
+                    foreach ($this->clients as $client) {
+                    // 找出發送人的對象 
+                       if($client->resourceId == $value['connid']) {
+                            $client->send($msg);
+                            break;
+                       }
+                    }
+                }
+                
+                break;
+            }
+        }
+        }
+        
         // foreach ($this->clients as $client) {
             // print_r($client->resourceId);
             // $client = $this->$this->clients[{{insert client id here}}];
@@ -100,17 +168,23 @@ class Chat implements MessageComponentInterface {
         // }
         if(empty($_SESSION[$conn->resourceId]))return;
 
-        $connto = $_SESSION[$conn->resourceId]['connto'];
-        if($connto !="")
-        $this->clients[$connto]->send('close');
+        // $connto = $_SESSION[$conn->resourceId]['connid'];
+        // if($connto !="")
+        // $this->clients[$connto]->send('close');
 
         echo "Connection ".$conn->resourceId." has disconnected\n";
-        echo "Connection ".$connto." has disconnected\n";
+        // echo "Connection ".$connto." has disconnected\n";
 
-        unset($this->clients[$connto]);
+        // 準備清除對象的connid
+        foreach ($_SESSION as $key => $value) {
+            if($value['connid'] == $conn->resourceId) {
+                $_SESSION[$key]['connid'] = "";
+            }
+        }
+        // unset($this->clients[$connto]);
         unset($this->clients[$conn->resourceId]);
         unset($_SESSION[$conn->resourceId]);
-        unset($_SESSION[$connto]);
+        // unset($_SESSION[$connto]);
         
     }
  

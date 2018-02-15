@@ -46,8 +46,9 @@ window.onload = function(){
     // TalkSub.onclick = function(){
     // }
     Quit.onclick = function (){
-        conn.close();;
-        startchat('close');
+        conn.send('close'); 
+        // conn.close();;
+        // startchat('close');
         document.getElementById("start").disabled=true;
         setTimeout(function(){ 
             $("#waitboard").fadeIn(3000); 
@@ -77,8 +78,8 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + waitingstr;
 
         setTimeout(function(){ 
-            conn = new WebSocket('ws://ec2-54-92-215-154.compute-1.amazonaws.com:8080');
-            // conn = new WebSocket('ws://127.0.0.1:8080');
+            // conn = new WebSocket('ws://ec2-54-92-215-154.compute-1.amazonaws.com:8080');
+            conn = new WebSocket('ws://127.0.0.1:8080');
 
             conn.onopen = function(e) {
             console.log("Connection established!");
@@ -89,6 +90,10 @@ window.onload = function(){
                     readmsg++;
                     document.title = '('+readmsg+')雀雀';
                     playSoundsForHtml5(1);
+                }
+                if(e.data =='same') {
+                    alert('把握緣分專心跟一個人聊天唷');
+                    location.reload();
                 }
                 if(e.data == "連線完成") {
                     var startstr = "";
