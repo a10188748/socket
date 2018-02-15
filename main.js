@@ -78,8 +78,8 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + waitingstr;
 
         setTimeout(function(){ 
-            // conn = new WebSocket('ws://ec2-54-92-215-154.compute-1.amazonaws.com:8080');
-            conn = new WebSocket('ws://127.0.0.1:8080');
+            conn = new WebSocket('ws://ec2-54-92-215-154.compute-1.amazonaws.com:8080');
+            // conn = new WebSocket('ws://127.0.0.1:8080');
 
             conn.onopen = function(e) {
             console.log("Connection established!");
@@ -89,45 +89,45 @@ window.onload = function(){
                 if(e.data =='same') {
                     alert('把握緣分專心跟一個人聊天唷');
                     location.reload();
-                    return;
                 }
-                if(document[state] == 'hidden') {
-                    readmsg++;
-                    document.title = '('+readmsg+')雀雀';
-                    playSoundsForHtml5(1);
-                }
-                if(e.data == "連線完成") {
-                    var startstr = "";
-                    var Words = document.getElementById("words");
-                    startstr = '<div class="systalk"><span>'+'連線完成'+'</span></div>';
-                    startchat();
-                    Words.innerHTML = Words.innerHTML + startstr;
-                }
-                else if(e.data == "close") {
-                    var closestr = "";
-                    var Words = document.getElementById("words");
-                    closestr = '<div class="systalk"><span>'+'對象已經離開'+'</span></div>';
-                    Words.innerHTML = Words.innerHTML + closestr;
-                    Words.scrollTop = Words.scrollHeight;
-                    startchat('close');
-                }
-                else {
-                    var restr = "";
-                    var Words = document.getElementById("words");
-                    restr = '<div class="atalk"><span>'+e.data+'</span></div>';
-                    Words.innerHTML = Words.innerHTML + restr;
-                    Words.scrollTop = Words.scrollHeight;
-                }  
-                document.addEventListener(visibilityChange, function() {
-                    if(document[state] != 'hidden')
-                    {
-                        readmsg = 0;
-                        document.title = '雀雀';
+                else
+                {
+                    if(document[state] == 'hidden') {
+                        readmsg++;
+                        document.title = '('+readmsg+')雀雀';
+                        playSoundsForHtml5(1);
                     }
-                    // console.log(readmsg);
-                }, false);
-                
-
+                    if(e.data == "連線完成") {
+                        var startstr = "";
+                        var Words = document.getElementById("words");
+                        startstr = '<div class="systalk"><span>'+'連線完成'+'</span></div>';
+                        startchat();
+                        Words.innerHTML = Words.innerHTML + startstr;
+                    }
+                    else if(e.data == "close") {
+                        var closestr = "";
+                        var Words = document.getElementById("words");
+                        closestr = '<div class="systalk"><span>'+'對象已經離開'+'</span></div>';
+                        Words.innerHTML = Words.innerHTML + closestr;
+                        Words.scrollTop = Words.scrollHeight;
+                        startchat('close');
+                    }
+                    else {
+                        var restr = "";
+                        var Words = document.getElementById("words");
+                        restr = '<div class="atalk"><span>'+e.data+'</span></div>';
+                        Words.innerHTML = Words.innerHTML + restr;
+                        Words.scrollTop = Words.scrollHeight;
+                    }  
+                    document.addEventListener(visibilityChange, function() {
+                        if(document[state] != 'hidden')
+                        {
+                            readmsg = 0;
+                            document.title = '雀雀';
+                        }
+                        // console.log(readmsg);
+                    }, false);
+                }
             };
         }, 2000); 
     }
