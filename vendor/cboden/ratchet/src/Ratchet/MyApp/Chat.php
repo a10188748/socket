@@ -134,8 +134,8 @@ class Chat implements MessageComponentInterface {
             if($from->resourceId == $id) {
                 // 若發送人connid為空 [對象暫時離線 存訊息]
                 if($value['connid'] == ""){
-                    $message[$value['connip']][] = $msg;
-                    print_r($message);
+                    $this->message[$value['connip']][] = $msg;
+                    print_r($this->message);
                     break;
                 }
                 // 若不為空 則發訊息
