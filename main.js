@@ -86,14 +86,15 @@ window.onload = function(){
             };
 
             conn.onmessage = function(e) {
+                if(e.data =='same') {
+                    alert('把握緣分專心跟一個人聊天唷');
+                    location.reload();
+                    return;
+                }
                 if(document[state] == 'hidden') {
                     readmsg++;
                     document.title = '('+readmsg+')雀雀';
                     playSoundsForHtml5(1);
-                }
-                if(e.data =='same') {
-                    alert('把握緣分專心跟一個人聊天唷');
-                    location.reload();
                 }
                 if(e.data == "連線完成") {
                     var startstr = "";
