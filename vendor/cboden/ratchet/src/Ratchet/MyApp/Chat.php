@@ -21,23 +21,27 @@ class Chat implements MessageComponentInterface {
             if($value['ip'] == $conn->remoteAddress)
             {
                 $conn->send('same');
-                exit;
+                $conn->close();
             }
         }
-        $this->clients[$conn->resourceId] = $conn;
-        echo '目前有'.count($this->clients).'個連線,新連線id為'.$conn->resourceId."\n";
-        $status = self::setsession($conn->resourceId,$conn->remoteAddress);
-        if($status) {
-            for($i=0 ;$i<2 ;$i++) {
-                $this->clients[$status[$i]['id']]->send('連線完成');
+        if($conn)
+        {
+            echo 1;
+            $this->clients[$conn->resourceId] = $conn;
+            echo '目前有'.count($this->clients).'個連線,新連線id為'.$conn->resourceId."\n";
+            $status = self::setsession($conn->resourceId,$conn->remoteAddress);
+            if($status) {
+                for($i=0 ;$i<2 ;$i++) {
+                    $this->clients[$status[$i]['id']]->send('連線完成');
+                }
+                // foreach ($this->clients as $client) {
+                //     if($client->resourceId == $status[0] || $client->resourceId == $status[1])
+                //         $client->send('連線完成');
+                // }
             }
-            // foreach ($this->clients as $client) {
-            //     if($client->resourceId == $status[0] || $client->resourceId == $status[1])
-            //         $client->send('連線完成');
-            // }
+            print_r($_SESSION);
+            // $conn->send('連線完成');
         }
-        print_r($_SESSION);
-        // $conn->send('連線完成');
     }
 
     public function setsession($userid,$userip)

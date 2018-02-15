@@ -88,7 +88,7 @@ window.onload = function(){
             conn.onmessage = function(e) {
                 if(e.data =='same') {
 
-                    // location.reload();
+                    location.reload();
                     console.log(1);
                     alert('把握緣分專心跟一個人聊天唷');
                 }
