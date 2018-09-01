@@ -13,7 +13,6 @@ class Chat implements MessageComponentInterface {
         $this->clients = array();
         $this->message = array();
         session_start();
-        
     }
  
     public function onOpen(ConnectionInterface $conn) {
