@@ -78,7 +78,7 @@ window.onload = function(){
         Words.innerHTML = Words.innerHTML + waitingstr;
 
         setTimeout(function(){ 
-            conn = new WebSocket('ws://ec2-54-92-215-154.compute-1.amazonaws.com:8080');
+            conn = new WebSocket('ws://ec2-54-162-101-64.compute-1.amazonaws.com:8080');
             // conn = new WebSocket('ws://127.0.0.1:8080');
 
             conn.onopen = function(e) {
