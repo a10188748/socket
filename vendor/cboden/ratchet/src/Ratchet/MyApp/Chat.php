@@ -49,6 +49,7 @@ class Chat implements MessageComponentInterface {
         // 閒置的人
         $pair = array();
         foreach ($_SESSION as $key => $value) {
+            // 檢查重複登入
             if($value['ip'] == $userip)
             {
                 $this->clients[$userid]->send('same');

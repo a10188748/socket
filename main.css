@@ -40,7 +40,7 @@ input:focus {
     width: 100%;
     height: 100%;
     background: #f9f9f9;
-    color: #ff5e3a;
+    color: #ff0951;
     border: 0;
 }
 .atalk {
@@ -61,7 +61,7 @@ input:focus {
     display:inline-block;
     background:#fff;
     border-radius:10px;
-    color:#FF5733;
+    color:#ff0951;
     padding:5px 10px;
     font-size: 16px;
 }
@@ -71,7 +71,7 @@ input:focus {
 }
 .btalk span {
     display:inline-block;
-    background:#ef8201;
+    background:#ff0951;
     border-radius:10px;
     color:#fff;
     padding:5px 10px;
@@ -262,7 +262,7 @@ input:focus {
         width: 100%;
         height: 100%;
         background: #f9f9f9;
-        color: #ff5e3a;
+        color:#ff0951;
         /*border-radius: 1px;*/
         border: 0;
     }
